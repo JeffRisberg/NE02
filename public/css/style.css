@@ -1,0 +1,13 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.logo {
+    background: url(../img/ne02_logo.png) no-repeat;
+    width: 100px;
+    height: 45px;
+}
+
+a {
+    color: #00B7FF;
+}
