@@ -1,26 +1,36 @@
 var express = require('express');
 var path = require('path');
-
-var app = express();
 var expressHbs = require('express-handlebars');
 
+var app = express();
 app.engine('hbs', expressHbs({extname: 'hbs', defaultLayout: 'main.hbs'}));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function (req, res) {
+// get an instance of router
+var router = express.Router();
+
+router.get('/', function (req, res) {
     res.render('index');
 });
 
-app.get('/simple', function (req, res) {
+// route with parameters (http://localhost:8080/hello/:name)
+router.get('/hello/:name', function (req, res) {
+    res.send('hello ' + req.params.name + '!');
+});
+
+router.get('/simple', function (req, res) {
     var data = {name: "Furby", color: "black", nickname: "LooLoo"};
     res.render('simple', data);
 });
 
-app.get('/complex', function (req, res) {
+router.get('/complex', function (req, res) {
     var data = {name: "Furby", color: "black", nickname: "LooLoo"};
     res.render('complex', data);
 });
+
+// apply the routes to our application
+app.use('/', router);
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
