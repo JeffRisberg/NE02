@@ -7,30 +7,13 @@ app.engine('hbs', expressHbs({extname: 'hbs', defaultLayout: 'main.hbs'}));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-// get an instance of router
-var router = express.Router();
-
-router.get('/', function (req, res) {
-    res.render('index');
-});
-
-// route with parameters (http://localhost:8080/hello/:name)
-router.get('/hello/:name', function (req, res) {
-    res.send('hello ' + req.params.name + '!');
-});
-
-router.get('/simple', function (req, res) {
-    var data = {name: "Furby", color: "black", nickname: "LooLoo"};
-    res.render('simple', data);
-});
-
-router.get('/complex', function (req, res) {
-    var data = {name: "Furby", color: "black", nickname: "LooLoo"};
-    res.render('complex', data);
-});
-
 // apply the routes to our application
-app.use('/', router);
+app.use('/', require('./routes/index'));
+app.use('/hello', require('./routes/hello'));
+app.use('/simple', require('./routes/simple'));
+app.use('/complex/', require('./routes/complex'));
+app.use('/logic/', require('./routes/logic'));
+app.use('/loops/', require('./routes/loops'));
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -64,10 +47,9 @@ app.use(function (err, req, res, next) {
     });
 });
 
-
 module.exports = app;
 
-var port = Number(process.env.PORT || 5000);
+var port = Number(process.env.PORT || 3000);
 
 app.listen(port, function () {
     console.log("Listening on " + port);
