@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res) {
-    var activities = ['Hike', "Bike", "Sleep", "Karate"];
+    var activities = ['Walk', 'Hike', "Bike", "Sleep", "Karate"];
     var startDate = new Date("October 13, 2014 11:15:00");
     var endDate = new Date("October 23, 2014 19:15:00");
 
